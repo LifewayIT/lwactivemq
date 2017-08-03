@@ -3,7 +3,7 @@ class lwactivemq::params {
   $activemquser = 'activemq'
   $activemqrundirectory = '/usr/ActiveMQ'
   $activemqtarholder = '/opt/activemqinstall'
-  $source = 'http://archive.apache.org/dist/activemq/5.10.0/apache-activemq-5.10.0-bin.tar.gz'
+  $source = 'https://s3.amazonaws.com/lifeway-binaries/activemq/apache-activemq-5.11.1-bin.tar.gz'
   $destination = '/opt/activemqinstall'
   $finaldest = '/usr/ActiveMQ'
   $servicename = 'activemq'
