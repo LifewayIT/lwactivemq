@@ -1,10 +1,5 @@
 start on startup
 respawn
 script
-  if [ -f "/etc/default/activemq" ]; then
-    set -a
-    . /etc/default/activemq
-  fi
-  . /etc/default/activemq
-  exec /usr/ActiveMQ/bin/activemq-admin start
+  exec /usr/ActiveMQ/bin/activemq start
 end script
