@@ -93,6 +93,11 @@ class lwactivemq::install (
       owner => $activemquser,
     } ->
 
+    file { '/var/activemq':
+      ensure => "directory",
+      owner => $activemquser,
+    } ->
+
     file { '/var/activemq/kahadb':
       ensure => "directory",
       owner => $activemquser,
