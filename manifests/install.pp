@@ -57,7 +57,7 @@ class lwactivemq::install (
     exec { 'agree to oracle java license':
       user => 'root',
       path => '/usr/bin',
-      command => 'echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections'
+      command => '/bin/echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections'
     } ->
 
     exec { 'install updated java version':
