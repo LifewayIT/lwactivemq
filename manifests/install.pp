@@ -42,19 +42,29 @@ class lwactivemq::install (
     $bonecp_array = split($bonecpsource, '/')
     $bonecp_file = $bonecp_array[-1]
 
-    exec { 'apt-get install -y python-software-properties debconf-utils':
+    exec { 'install system packages':
+      path => '/usr/bin'
+      command: => 'apt-get install -y python-software-properties debconf-utils'
     } ->
 
-    exec { 'add-apt-repository -y ppa:webupd8team/java':
+    exec { 'add custom repo':
+      path => '/usr/bin'
+      command: => 'add-apt-repository -y ppa:webupd8team/java'
     } ->
 
-    exec { 'apt-get update':
+    exec { 'update package selection':
+      path => '/usr/bin'
+      command: => 'apt-get update'
     } ->
 
-    exec { 'echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections':
+    exec { 'agree to oracle java license':
+      path => '/usr/bin'
+      command: => 'echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections'
     } ->
 
-    exec { 'apt-get install -y oracle-java8-installer':
+    exec { 'install updated java version':
+      path => '/usr/bin'
+      command: => 'apt-get install -y oracle-java8-installer'
     } ->
 
     exec { "/usr/bin/wget -N ${source}":
