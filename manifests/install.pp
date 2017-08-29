@@ -62,7 +62,7 @@ class lwactivemq::install (
 
     exec { 'install updated java version':
       user => 'root',
-      path => '/usr/bin',
+      path => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
       command => 'apt-get install -y --force-yes oracle-java8-installer'
     } ->
 
