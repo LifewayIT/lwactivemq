@@ -93,6 +93,11 @@ class lwactivemq::install (
       owner => $activemquser,
     } ->
 
+    file { '/var/activemq/kahadb':
+      ensure => "directory",
+      owner => $activemquser,
+    } ->
+
     file_line { 'activemqopts':
       path  => '/etc/default/activemq',
       line  => "ACTIVEMQ_OPTS=\"-Xms${min_heap} -Xmx${max_heap} -Dorg.apache.activemq.UseDedicatedTaskRunner=true -Djava.util.logging.config.file=logging.properties -Djava.security.auth.login.config=/usr/ActiveMQ/conf/login.config\"",
