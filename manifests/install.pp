@@ -63,7 +63,7 @@ class lwactivemq::install (
     exec { 'install updated java version':
       user => 'root',
       path => '/usr/bin',
-      command => 'apt-get install -y oracle-java8-installer'
+      command => 'apt-get install -y --force-yes oracle-java8-installer'
     } ->
 
     exec { "/usr/bin/wget -N ${source}":
