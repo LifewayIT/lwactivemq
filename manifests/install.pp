@@ -42,12 +42,6 @@ class lwactivemq::install (
     $bonecp_array = split($bonecpsource, '/')
     $bonecp_file = $bonecp_array[-1]
 
-    exec { 'install system packages':
-      user => 'root',
-      path => '/usr/bin',
-      command => 'apt-get install -y python-software-properties debconf-utils'
-    } ->
-
     exec { 'add custom repo':
       user => 'root',
       path => '/usr/bin',
