@@ -44,27 +44,27 @@ class lwactivemq::install (
 
     exec { 'install system packages':
       path => '/usr/bin',
-      command: => 'apt-get install -y python-software-properties debconf-utils'
+      command => 'apt-get install -y python-software-properties debconf-utils'
     } ->
 
     exec { 'add custom repo':
       path => '/usr/bin',
-      command: => 'add-apt-repository -y ppa:webupd8team/java'
+      command => 'add-apt-repository -y ppa:webupd8team/java'
     } ->
 
     exec { 'update package selection':
       path => '/usr/bin',
-      command: => 'apt-get update'
+      command => 'apt-get update'
     } ->
 
     exec { 'agree to oracle java license':
       path => '/usr/bin',
-      command: => 'echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections'
+      command => 'echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections'
     } ->
 
     exec { 'install updated java version':
       path => '/usr/bin',
-      command: => 'apt-get install -y oracle-java8-installer'
+      command => 'apt-get install -y oracle-java8-installer'
     } ->
 
     exec { "/usr/bin/wget -N ${source}":
