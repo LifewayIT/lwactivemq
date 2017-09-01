@@ -58,6 +58,14 @@
         </plugins>
         <%- end -%>
 
+        <destinationInterceptors>
+          <virtualDestinationInterceptor>
+            <virtualDestinations>
+              <virtualTopic name="VirtualTopic.>" concurrentSend="true"/>
+            </virtualDestinations>
+          </virtualDestinationInterceptor>
+        </destinationInterceptors>
+
         <destinationPolicy>
             <policyMap>
               <policyEntries>
