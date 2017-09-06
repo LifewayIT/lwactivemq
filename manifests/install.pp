@@ -42,6 +42,30 @@ class lwactivemq::install (
     $bonecp_array = split($bonecpsource, '/')
     $bonecp_file = $bonecp_array[-1]
 
+    exec { 'add custom repo':
+      user => 'root',
+      path => '/usr/bin',
+      command => 'add-apt-repository -y ppa:webupd8team/java'
+    } ->
+
+    exec { 'update package selection':
+      user => 'root',
+      path => '/usr/bin',
+      command => 'apt-get update'
+    } ->
+
+    exec { 'agree to oracle java license':
+      user => 'root',
+      path => '/usr/bin',
+      command => '/bin/echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections'
+    } ->
+
+    exec { 'install updated java version':
+      user => 'root',
+      path => ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+      command => 'apt-get install -y --force-yes oracle-java8-installer'
+    } ->
+
     exec { "/usr/bin/wget -N ${source}":
       cwd =>  $destination,
     } ->
@@ -66,6 +90,16 @@ class lwactivemq::install (
 
     file { '/etc/default/activemq':
       ensure => "file",
+      owner => $activemquser,
+    } ->
+
+    file { '/var/activemq':
+      ensure => "directory",
+      owner => $activemquser,
+    } ->
+
+    file { '/var/activemq/kahadb':
+      ensure => "directory",
       owner => $activemquser,
     } ->
 
@@ -133,8 +167,8 @@ class lwactivemq::install (
 
     file_line { 'jmxsetup':
       path  => '/etc/default/activemq',
-      line  => "SUNJMX=\"-Dcom.sun.management.jmxremote.port=${jmxport} -Dcom.sun.management.jmxremote.rmi.port=${jmxport} -Djava.rmi.server.hostname=$ipaddress -Dcom.sun.management.jmxremote.password.file=/usr/ActiveMQ/conf/jmx.password -Dcom.sun.management.jmxremote.access.file=/usr/ActiveMQ/conf/jmx.access -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote\"",
-      match => '^SUNJMX.*',
+      line  => "ACTIVEMQ_SUNJMX_START=\"-Dcom.sun.management.jmxremote.port=${jmxport} -Dcom.sun.management.jmxremote.rmi.port=${jmxport} -Djava.rmi.server.hostname=$ipaddress -Dcom.sun.management.jmxremote.password.file=/usr/ActiveMQ/conf/jmx.password -Dcom.sun.management.jmxremote.access.file=/usr/ActiveMQ/conf/jmx.access -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote\"",
+      match => '^ACTIVEMQ_SUNJMX_START.*',
       notify => Service[$servicename],
     }
 
