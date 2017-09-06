@@ -58,14 +58,6 @@
         </plugins>
         <%- end -%>
 
-        <destinationInterceptors>
-          <virtualDestinationInterceptor>
-            <virtualDestinations>
-              <virtualTopic name="VirtualTopic.>" concurrentSend="true"/>
-            </virtualDestinations>
-          </virtualDestinationInterceptor>
-        </destinationInterceptors>
-
         <destinationPolicy>
             <policyMap>
               <policyEntries>
@@ -124,7 +116,7 @@
 
         <% if @mq_cluster_type == "nocluster" -%>
         <persistenceAdapter>
-             <kahaDB directory="/var/activemq/kahadb" preallocationStrategy="zeros"/>
+             <kahaDB directory="/var/activemq/kahadb"/>
         </persistenceAdapter>
         <%- end -%>
 
@@ -136,13 +128,13 @@
           <systemUsage>
             <systemUsage>
                 <memoryUsage>
-                    <memoryUsage percentOfJvmHeap="75" />
+                    <memoryUsage percentOfJvmHeap="70" />
                 </memoryUsage>
                 <storeUsage>
-                    <storeUsage limit="150 gb"/>
+                    <storeUsage limit="100 gb"/>
                 </storeUsage>
                 <tempUsage>
-                    <tempUsage limit="25 gb"/>
+                    <tempUsage limit="50 gb"/>
                 </tempUsage>
             </systemUsage>
         </systemUsage>
